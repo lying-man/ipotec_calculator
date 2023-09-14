@@ -1,0 +1,544 @@
+
+@import "_reset.scss";
+@import "_helpers.scss";
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: $baseFont, sans-serif;
+    background: $bgColor;
+    min-height: 100vh;
+    @extend %center;
+    padding: 20px;
+}
+
+.alert {
+    position: fixed;
+    bottom: 40px;
+    right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    background: darken($green, 12);
+    padding: 8px;
+    border-radius: 6px;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 4;
+    transform: translateY(calc(100% + 42px));
+    transition: all .3s cubic-bezier(0.5, 0, 0.75, 0);
+
+    &.active {
+        transform: translateY(0%);
+        transition: all .3s cubic-bezier(0.5, 0, 0.75, 0);
+    }
+
+    &.animate {
+        .alert-progress {
+            animation: progress 2s linear 1 forwards .3s;
+
+            @keyframes progress {
+                from { width: 100%; }
+                to { width: 0%; }
+            }
+        }
+    }
+
+    &-img {
+        width: 30px;
+        height: 30px;
+        user-select: none;
+    }
+
+    &-text {
+        user-select: none;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        letter-spacing: 0.6px;
+    }
+
+    &-line {
+        position: absolute;
+        width: 100%;
+        height: 4px;
+        background: rgb(106, 106, 106);
+        left: 0;
+        bottom: 0;
+    }
+
+    &-progress {
+        position: absolute;
+        width: 100%;
+        height: 4px;
+        background: #000;
+        left: 0;
+        bottom: 0;
+    }
+}
+
+.calc {
+    background: $bgCalc;
+    padding: 14px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.1);
+    max-width: 700px;
+    width: 100%;
+    position: relative;
+
+    .result-btn {
+        @extend %center;
+        position: absolute;
+        height: 50vh;
+        width: 70px;
+        top: 14px;
+        right: 14px;
+        writing-mode: vertical-rl;
+        text-align: center;
+        background: $green;
+        color: #fff;
+        font-weight: 700;
+        font-size: 26px;
+        letter-spacing: 1px;
+        padding: 0px 10px;
+        border-radius: 6px;
+        user-select: none;
+        border: none;
+        pointer-events: auto;
+        opacity: 1;
+        transition: all .2s ease;
+
+        @media (max-width: 630px) {
+            position: static;
+            writing-mode: horizontal-tb;
+            height: auto;
+            width: auto;
+            margin-top: 20px;
+            padding: 8px 14px;
+            font-size: 22px;
+        }
+
+        &.disable {
+            pointer-events: none;
+            opacity: 0.5;
+            transition: all .2s ease;
+        }
+
+        @media (hover) {
+            &:hover {
+                background: darken($green, 20);
+                transition: all .2s ease;
+            }
+        }
+
+        span {
+            transform: rotate(-90deg);
+
+            @media (max-width: 630px) {
+                transform: rotate(0deg);
+            }
+        }
+    }
+
+    .calc-title {
+        font-size: 26px;
+        font-weight: 700;
+        margin-bottom: 20px;
+
+        @media (max-width: 420px) {
+            font-size: 22px;
+        }
+    }
+
+    &-block.info {
+
+        .calc-block-initial {
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            padding: 5px 10px;
+            padding-left: 5px;
+            padding-right: 18px;
+            border-radius: 9999px;
+            background: transparent;
+            font-size: 16px;
+
+            @media (max-width: 500px) {
+                display: inline-block;
+                border-radius: 6px;
+                text-align: center;
+                padding-right: 10px;
+                padding-left: 10px;
+            }
+
+            &.calculated {
+                background: darken($green, 5);
+            }
+        }
+
+        .info-procent-price {
+            color: #fff;
+            display: none;
+
+            &.active {
+                display: block;
+            }
+        }
+
+        .info-price {
+            display: inline-block;
+            background: $dark;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 9999px;
+            text-align: center;
+
+            @media (max-width: 500px) {
+                margin-bottom: 10px;
+            }
+
+            &.calculated {
+                background: $green;
+            }
+        }
+    }
+
+    &-block {
+
+        .price-range {
+            max-width: 371px;
+            width: 100%;
+            height: 4px;
+            background: $green;
+            margin-top: 24px;
+            position: relative;
+
+            @media (max-width: 630px) {
+                max-width: 450px;
+            }
+
+            @media (max-width: 480px) {
+                margin-top: 10px;
+            }
+
+            &-thumb {
+                height: 20px;
+                width: 20px;
+                border-radius: 50%;
+                background: $green;
+                position: absolute;
+                @extend %center;
+                box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+                left: 0;
+                top: 50%;
+                transform: translateY(-50%) scale(1);
+                cursor: pointer;
+                pointer-events: auto;
+                touch-action: none;
+
+                &.active {
+                    pointer-events: none;
+                    transform: translateY(-50%) scale(1.1);
+                }
+
+                &:after {
+                    content: "";
+                    display: block;
+                    border-radius: 50%;
+                    background: #fff;
+                    position: absolute;
+                    width: 50%;
+                    height: 50%;
+                    pointer-events: auto;
+                }
+            }
+        }
+
+        &:not(:nth-of-type(6)) {
+            margin-bottom: 26px;
+        }
+
+        &-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            font-weight: 500;
+
+            .price-estate-rub {
+                display: none;
+                font-size: 18px;
+                margin-left: 2px;
+                font-weight: 500;
+
+                @media (max-width: 630px) {
+                    display: inline-block;
+                }
+            }
+        }
+
+        &-inp {
+            max-width: 450px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            @media (max-width: 480px) {
+                display: block;
+            }
+
+            &.last {
+                display: flex;
+
+                @media (max-width: 350px) {
+                    gap: 3px;
+                }
+
+                input {
+                    min-width: auto;
+                    margin-bottom: 0%;
+                }
+
+                .procent-btns {
+                    flex: 0 0 auto;
+
+                    button {
+                        width: 34px;
+                        border-radius: 3px;
+                        height: 20px;
+                        position: relative;
+                        @extend %center;
+                        border: none;
+                        background: $green;
+                        border: 2px solid #fff;
+                        margin-left: 3px;
+                        margin-right: 6px;
+                        user-select: none;
+                        border: 1px solid transparent;
+                        transition: all .2s ease;
+
+                        @media (max-width: 350px) {
+                            width: 20px;
+                            height: 18px;
+                        }
+
+                        &:first-child {
+                            margin-bottom: 5px;
+                        }
+
+                        &.disable {
+                            background: #D0D3D4;
+                            pointer-events: none;
+                        }
+
+                        img {
+                            position: absolute;
+                            width: 80%;
+                            height: 80%;
+
+                            &.up-procent-img {
+                                transform: rotate(-180deg);
+                            }
+                        }
+
+                        &:hover {
+                            border: 1px solid black;
+                            transition: all .2s ease;
+                        }
+                    }
+                }
+            }
+
+            .calc-block-text, .dropdown-first-pay, .dropdown-terms, .procent-btns {
+                flex: 0 0 160px;
+                font-size: 16px;
+            }
+
+            .dropdown-first-pay, .dropdown-terms {
+                @media (max-width: 480px) {
+                    max-width: 214px;
+                    width: 100%;
+                }
+            }
+
+            .calc-block-text {
+                text-align: center;
+                flex: 0 0 auto;
+                align-self: flex-end;
+
+                @media (max-width: 630px) {
+                    display: none;
+                }
+            }
+
+            input {
+                flex: 0 1 100%;
+                outline: none;
+                border: 3px solid darken($green, 0);
+                background: lighten(#D0D3D4, 10);
+                padding: 10px;
+                font-size: 18px;
+                border-radius: 6px;
+                transition: all .2s ease;
+
+                @media (max-width: 480px) {
+                    min-width: 100%;
+                    margin-bottom: 14px;
+                }
+
+                &:focus {
+                    background: #fff;
+                    border: 3px solid darken($green, 10);
+                    transition: all .2s ease;
+                }
+            }
+        }
+
+        &-btns {
+            margin-top: 10px;
+            display: flex;
+            gap: 16px;
+
+            @media (max-width: 350px) {
+                gap: 10px;
+            }
+
+            .btn-item {
+                padding: 6px 10px;
+                font-size: 20px;
+                font-weight: bold;
+                background: $green;
+                border: none;
+                border-radius: 5px;
+                color: $light;
+                transition: all .2s ease-out;
+
+                @media (max-width: 350px) {
+                    font-size: 16px;
+                }
+
+                @media (hover) {
+                    &:hover {
+                        background: darken($green, 20);
+                        transition: all .2s ease-out;
+                    }
+                }
+
+                &.small {
+                    padding: 6px 16px;
+                }
+            }
+        }
+    }
+
+    .result {
+        width: 100%;
+        margin-top: 26px;
+        display: none;
+
+        &-tip {
+            margin-bottom: 20px;
+            font-size: 16px;
+            max-width: 600px;
+            padding: 8px;
+            border-radius: 5px;
+            overflow: hidden;
+            background: rgb(235, 234, 234);
+
+            @media (max-width: 620px) {
+                font-size: 12px;
+            }
+
+            &-block {
+
+                &:first-child {
+                    margin-bottom: 10px;
+                }
+            }
+
+            span {
+                color: red;
+                margin-right: 1px;
+            }
+        }
+
+        &.show {
+            display: block;
+        }
+
+        &-block {
+            width: 100%;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+
+            @media (max-width: 364px) {
+                display: block;
+            }
+
+            @media (max-width: 450px) {
+                gap: 10px;
+            }
+
+            &:not(:last-child) {
+                margin-bottom: 16px;
+            }
+
+            &-title {
+                font-size: 18px;
+
+                @media (max-width: 364px) {
+                    margin-bottom: 8px;
+                }
+
+                @media (max-width: 450px) {
+                    flex: 0 0 100px;
+                }
+
+                @media (max-width: 550px) {
+                    font-size: 14px;
+                }
+            }
+
+            &-value {
+                display: flex;
+                gap: 5px;
+                align-items: center;
+
+                span:first-child {
+                    background: $green;
+                    color: #fff;
+                    border-radius: 3px;
+                    padding: 6px 10px;
+                    font-weight: 700;
+                    font-size: 18px;
+                    cursor: pointer;
+                    user-select: none;
+
+                    @media (max-width: 550px) {
+                        font-size: 16px;
+                    }
+
+                    @media (hover) {
+                        &:hover {
+                            background: darken($green, 5);
+                        }
+                    }
+                }
+
+                span:last-child {
+                    font-size: 16px;
+
+                    @media (max-width: 550px) {
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+
+        &-footer {
+            max-width: 280px;
+            height: 280px;
+        }
+    }
+}

@@ -1,0 +1,89 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Ипотечный калькулятор
+        link(rel="stylesheet" href="CSS/select.css")
+        link(rel="stylesheet" href="CSS/main.css")
+    body 
+        .alert 
+            img(src="img/alert.svg" alt="alert image").alert-img
+            .alert-text Рассчитано
+            .alert-line
+            .alert-progress
+        .calc 
+            .calc-title Ипотечный калькулятор
+            .calc-block 
+                .calc-block-title Стоимость недвижимости <span class="price-estate-rub">(Руб.)</span>
+                .calc-block-inp 
+                    input(type="text" class="input input-price" placeholder="Введите значение")
+                    .calc-block-text В рублях
+                .price-range    
+                    .price-range-thumb 
+            .calc-block 
+                .calc-block-title Первоначальный взнос
+                .calc-block-inp 
+                    input(type="text" class="input input-firstPay" placeholder="Введите значение")
+                    .dropdown-first-pay
+                .calc-block-btns.btns-firstPay 
+                    button.btn-item.btn-item-firstPay(data-value="10") 10%
+                    button.btn-item.btn-item-firstPay(data-value="20") 20%
+                    button.btn-item.btn-item-firstPay(data-value="30") 30%
+            .calc-block.info 
+                .calc-block-title.info-title Сумма кредита
+                .calc-block-initial 
+                    .info-price Будет рассчитано
+                    .info-procent-price 20% ~ 21312
+            .calc-block     
+                .calc-block-title Срок кредита
+                .calc-block-inp 
+                    input(type="text" class="input input-terms" placeholder="Введите значение")
+                    .dropdown-terms
+                .calc-block-btns.btns-terms
+                    button.btn-item.small(data-value="5") 5
+                    button.btn-item(data-value="10") 10
+                    button.btn-item(data-value="12") 12
+                    button.btn-item(data-value="20") 20
+                    button.btn-item(data-value="30") 30
+            .calc-block 
+                .calc-block-title Процентная ставка
+                .calc-block-inp.last 
+                    input(type="text" class="input input-procent" placeholder="Введите значение")
+                    .procent-btns 
+                        button.up-procent
+                            img(src="img/arrow.svg" alt="image arrow").up-procent-img
+                        button.down-procent.disable(disabled) 
+                            img(src="img/arrow.svg" alt="image arrow")
+            button.result-btn.disable(disabled) 
+                span Рассчитать
+            .result
+                .result-tip 
+                    <div class="result-tip-block"> 
+                        <span>*</span>После внесения изменений в поля, нажмите кнопку "Рассчитать", что-бы получить актуальный результат
+                    </div>
+                    <div class="result-tip-block"> 
+                        <span>*</span>Нажмите на значение в зелёной рамке, что бы скопировать его
+                    </div>
+                .result-block 
+                    .result-block-title Ежемесячный платёж
+                    .result-block-value.month-pay 
+                        span(tabindex="0" data-click="copy") 460.84 
+                        span рублей
+                .result-block 
+                    .result-block-title Начисленные проценты
+                    .result-block-value.all-procent 
+                        span(tabindex="0" data-click="copy") 23 179 567.76 
+                        span рублей
+                .result-block 
+                    .result-block-title Долг + Проценты
+                    .result-block-value.total-debt 
+                        span(tabindex="0" data-click="copy") 55 234.65 
+                        span рублей
+                .result-footer 
+                    canvas(id="chart-canvas")
+        script(src="JS/select.js") 
+        script(src="JS/chart.js")
+        script(src="JS/main.js") 
+                

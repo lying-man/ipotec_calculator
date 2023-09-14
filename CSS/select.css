@@ -1,0 +1,127 @@
+
+.select-wrapper {
+    width: 100%;
+    display: block;
+    position: relative;
+    user-select: none;
+}
+
+.select-inner {
+    width: 100%;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 3px solid #3FC063;
+    background: #3FC063;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transform: scale(1);
+    transition: all .1s ease-out;
+}
+
+@media (hover) {
+    .select-inner:active {
+        transform: scale(0.9);
+        transition: all .1s ease-out;
+    }
+}
+
+.select-text {
+    font-size: 18px;
+    user-select: none;
+    user-select: none;
+}
+
+.select-icon {
+    flex: 0 0 20px;
+    height: 20px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotate(0deg);
+    transition: all .15s ease-out;
+}
+
+@media (max-width: 480px) {
+    .select-icon {
+        flex: 0 0 12px;
+        height: 12px;
+    }
+}
+
+.select-icon:after {
+    content: "";
+    display: block;
+    position: absolute;
+    font-size: 40px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("../img/arrow.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.select-dropdown {
+    position: absolute;
+    display: block;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 100%;
+    border-radius: 5px;
+    padding: 5px 0px;
+    /* border: 3px solid #3FC063; */
+    background-color: #3FC063;
+    color: #fff;
+    max-height: 250px;
+    overflow-y: auto;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.1);
+    transform: translateY(10px);
+    transition: all .2s ease-out;
+    user-select: none;
+}
+
+.select-list {
+    width: 100%;
+    user-select: none;
+}
+
+.select-list-item {
+    font-size: 18px;
+    padding: 6px;
+    cursor: pointer;
+    user-select: none;
+    transition: all .15s ease-out;
+}
+
+.select-list-item:hover {
+    background-color: #106327;
+    color: #fff;
+    transition: all .15s ease-out;
+}
+
+.select--open .select-dropdown {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    z-index: 10;
+    transform: translateY(0px);
+    transition: all .2s ease-out;
+}
+
+.select--open .select-icon {
+    transform: rotate(-180deg);
+    transition: all .15s ease-out;
+}
+
+.select--checked {
+    background-color: #1c8b3b;
+}
